@@ -1,0 +1,610 @@
+﻿
+:root {
+    --gap: 5px;
+    --trans-speed: 0.5s;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    max-width: 11in;
+    margin: auto;
+    gap: var(--gap);
+    padding: var(--gap);
+}
+
+.pageTitle {
+    font-size: 2.5em;
+}
+
+.main {
+    flex: auto;
+}
+
+.content {
+    flex: auto;
+    display: flex;
+    /* must have for scroll */
+    min-height: 0vh;
+    gap: var(--gap);
+}
+
+    .content .section {
+        display: inline;
+        max-width: 20%;
+    }
+
+.scrollable {
+    overflow-y: auto;
+}
+
+.roundedBorder {
+    border-radius: 6px;
+    border: 1px solid lightgray;
+    padding: var(--gap);
+}
+
+.footerPanel {
+    display: grid !important;
+    grid-template-columns: auto 24px !important;
+    align-items: center;
+}
+
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.event-form {
+    max-width: 320px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.profil-form {
+    max-width: 320px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.event-form input {
+    margin-top: 8px;
+    width: 100%;
+}
+
+.profil-form input {
+    margin-top: 8px;
+    width: 100%;
+}
+
+.passwordLayout {
+    display: grid;
+    grid-template-columns: auto 0px;
+}
+
+.passwordShowIcon {
+    transform: translate(-32px, 12px) !important;
+    cursor: pointer;
+    color: #aaa;
+    font-size: 1.1em;
+}
+
+
+.userItem {
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+}
+
+
+.journalLayout {
+    display: flex;
+    column-gap: 8px;
+    padding-top: 4px;
+    margin-bottom: 4px;
+    align-items: center;
+}
+
+.UserHeaderAvatar {
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    margin-right: 3px;
+    margin-left: 3px;
+    border-radius: 25px;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.UserXSmallAvatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.UserSmallAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 35px;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.UserMediumAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.transparentBackground {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.access {
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+}
+
+.selectedAccess {
+    width: 40px;
+    height: 40px;
+    border: 0.1px solid dodgerblue;
+    padding: 3px;
+    border-radius: 40px;
+    background-color: rgba(0,125,255,0.15);
+}
+
+.popup {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 360px;
+    height: 80px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    z-index: 100;
+    padding: 6px;
+    display: none;
+    /*to hide popup initially*/
+}
+
+.popupContent {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 20px;
+}
+
+.popupHearder {
+    font-size: medium;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.close-btn {
+    cursor: pointer;
+}
+
+#popUpMessage {
+    font-size: 16px;
+}
+
+
+
+form {
+    max-width: 4in;
+    margin: auto;
+}
+
+    form label {
+        font-weight: bold;
+    }
+
+    form input {
+        margin-bottom: 8px;
+    }
+
+
+.detailsPanel dl {
+    margin: auto;
+    font-size: 1em;
+}
+
+.detailsPanel dt {
+    color: gray;
+}
+
+.detailsPanel dd {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+fieldset {
+    border: 1px solid #ddd !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    padding-top: 16px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+legend {
+    font-size: 1.0em;
+    font-weight: bold;
+    color: #777;
+    float: none;
+    width: inherit;
+    padding: 0 6px;
+    margin-left: 6px;
+    margin-bottom: -12px;
+    transform: translate(0,-1px);
+    text-align: left;
+}
+
+input, textarea {
+    margin: 0px !important;
+}
+
+label {
+    color: #777;
+}
+
+details {
+    /* source : https://nerdy.dev/open-and-close-transitions-for-the-details-element*/
+
+    @media (prefers-reduced-motion: no-preference) {
+        interpolate-size: allow-keywords;
+    }
+
+    &::details-content
+
+{
+    opacity: 0;
+    block-size: 0;
+    overflow-y: clip;
+    transition: content-visibility 1s allow-discrete, opacity 0.75s, block-size 0.75s;
+}
+
+&[open]::details-content {
+    opacity: 1;
+    block-size: auto;
+}
+
+& div {
+    margin-left: 6px;
+}
+
+}
+
+summary {
+    background: lightgray;
+    padding-left: 8px;
+    height: 34px;
+    border: 1px solid white;
+    border-radius: 6px;
+    font-weight: bold;
+    &::marker
+
+{
+    font-size: 20px;
+}
+
+}
+
+.toggleLikeCmd{
+    color:dodgerblue;
+}
+
+
+
+.cmdIcon {
+    font-size: 1.5rem;
+    color: rgb(0, 87, 204);
+    margin-right: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .cmdIcon:hover {
+        color: rgb(103, 165, 247);
+    }
+
+.cmdIconSmall {
+    font-size: 1.2rem;
+}
+
+.menuIcon {
+    font-size: 1.2rem;
+    text-align: center;
+    color: darkgray;
+}
+
+.headerMenu {
+    display: grid;
+    grid-template-columns: 3em auto 30px;
+    align-items: center;
+}
+
+    .headerMenu a {
+        text-decoration: none;
+    }
+
+.pageTitle {
+    font-size: 1.5em;
+    text-align: left;
+    font-weight: bold;
+}
+
+.menu {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1.2em;
+}
+
+.siteIcon {
+    background-image: URL('../WebApp.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 2.5em;
+    height: 2.5em;
+}
+
+.item-layout {
+    display: grid !important;
+    grid-template-columns: 40px auto !important;
+    align-items: center;
+    cursor: pointer;
+}
+
+.searchBar {
+    display: flex;
+    gap: 6px;
+}
+
+.searchBarItem {
+    width: 33%;
+}
+
+.mediaListLayout {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    gap: 6px !important;
+}
+
+    .mediaListLayout a {
+        text-decoration: none;
+        cursor: pointer;
+        color: black;
+    }
+
+        .mediaListLayout a:hover {
+            background-color: aliceblue;
+        }
+
+@media screen and (max-width: 800px) {
+    .mediaListLayout {
+        grid-template-columns: 49.75% 49.75%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .mediaListLayout {
+        grid-template-columns: 100%;
+    }
+}
+
+.mediaLayout {
+    border: 0.1px solid #ccc;
+    border-radius: 5px;
+    &:hover
+
+{
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+}
+
+.mediaThumbnail {
+    width: 100% !important;
+    aspect-ratio: 16/9;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom: 0.1px solid #ccc;
+    background-size: cover;
+    background-position: center;
+}
+
+.mediaThumbnailBig {
+    width: 100% !important;
+    aspect-ratio: 16/9;
+    border-radius: 6px;
+}
+
+.mediaPlayerBig {
+    aspect-ratio: 16/9;
+    width: 100% !important;
+}
+
+.description {
+    font-size: 1em !important;
+}
+
+
+.commentsSection {
+    margin-left: -60px;
+    padding-top: 6px;
+}
+
+.commentsLayout {
+    padding-left: 40px;
+}
+
+.commentLayout {
+    display: grid;
+    grid-template-columns: 55px auto;
+    align-items: flex-start;
+    margin: 8px;
+}
+
+
+.newCommentLayout {
+    display: grid;
+    grid-template-columns: 55px auto;
+    align-items: flex-start;
+    margin: 8px;
+}
+
+.editCommentLayout {
+    display: grid;
+    grid-template-columns: 55px auto;
+    align-items: flex-start;
+    margin: 8px;
+}
+
+divx {
+    border: 1px solid red;
+}
+
+.responseLayout {
+    display: grid;
+    grid-template-columns: 50px auto;
+    align-items: flex-start;
+    margin: 8px;
+    padding-left: 50px;
+}
+
+
+.commentFooter {
+    font-size: 0.85em;
+    display: grid;
+    grid-template-columns: auto 20px;
+    align-items: center;
+    padding: 3px;
+}
+
+.commentSubFooter {
+    font-size: 1em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 3px;
+    gap: 15px;
+}
+
+.editCommentFooter {
+    font-size: 1em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 3px;
+    gap: 15px;
+    padding: 5px;
+}
+
+.textComment {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin: 3px;
+    margin-top: 0px;
+    min-height: 40px;
+    padding: 6px;
+}
+
+.contentImage {
+    width: 100%;
+}
+
+.highlight {
+    background-color: yellow;
+}
+
+
+.icon {
+    font-size: 25px;
+    cursor: pointer;
+    -webkit-text-stroke-width: 0.75px;
+    -webkit-text-stroke-color: #337ab7;
+    -webkit-text-fill-color: #337ab7;
+}
+
+    .icon:hover {
+        -webkit-text-stroke-color: #6dbafc;
+        -webkit-text-fill-color: #6dbafc;
+    }
+
+    .icon:active {
+        -webkit-text-stroke-color: #e0f1ff;
+        -webkit-text-fill-color: #e0f1ff;
+    }
+
+.small_icon {
+    height: 25px;
+}
+
+.xsmall_icon {
+    height: 18px;
+}
+
+
+.imageUploaderx {
+    padding: 4px !important;
+    padding-bottom: 1px !important;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.UploadedImage {
+    border-radius: 8px;
+}
+
+.ui-widget-content {
+    margin-top: 8px;
+    width: 350px;
+    height: auto;
+    border: 1px solid blue;
+    select
+
+{
+    margin: 3px !important;
+    padding: 4px 2px 2px 2px; /* top right bottom left */
+    max-height: 400px;
+    border-radius: 5px;
+    border: 0.1px solid #ccc;
+}
+
+.ui-icon {
+    margin-top: -5px !important;
+    scale: 1.5;
+}
+}
