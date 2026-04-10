@@ -23,6 +23,7 @@ public class MediasController : Controller
         if (Session["Search"] == null) Session["Search"] = false;
         if (Session["SearchString"] == null) Session["SearchString"] = "";
         if (Session["SelectedCategory"] == null) Session["SelectedCategory"] = "";
+        if (Session["SelectedUser"] == null) Session["SelectedUser"] = 0;
         if (Session["Categories"] == null) Session["Categories"] = DB.Medias.MediasCategories();
         if (Session["SortByTitle"] == null) Session["SortByTitle"] = true;
         if (Session["MediaSortBy"] == null) Session["MediaSortBy"] = MediaSortBy.PublishDate;
@@ -64,6 +65,10 @@ public class MediasController : Controller
                 string SelectedCategory = (string)Session["SelectedCategory"];
                 if (SelectedCategory != "")
                     result = result.Where(c => c.Category == SelectedCategory);
+
+                int SelectedUser = (int)Session["SelectedUser"];
+                if (SelectedUser != 0)
+                    result = result.Where(c => c.OwnerId == SelectedUser);
             }
 
 
@@ -75,6 +80,8 @@ public class MediasController : Controller
                         result = result.OrderBy(c => c.Title); break;
                     case MediaSortBy.PublishDate:
                         result = result.OrderBy(c => c.PublishDate); break;
+                    case MediaSortBy.Like:
+                        result = result.OrderBy(c => c.MediasLikes().Count); break;
                 }
             }
             else
@@ -85,6 +92,8 @@ public class MediasController : Controller
                         result = result.OrderByDescending(c => c.Title); break;
                     case MediaSortBy.PublishDate:
                         result = result.OrderByDescending(c => c.PublishDate); break;
+                    case MediaSortBy.Like:
+                        result = result.OrderByDescending(c => c.MediasLikes().Count); break;
                 }
             }
             if (result.Count() < nbItems + index)
@@ -168,6 +177,28 @@ public class MediasController : Controller
             return Content("Erreur interne" + ex.Message, "text/html");
         }
     }
+
+
+
+    public ActionResult GetMediasUsersList(bool forceRefresh = false)
+    {
+        try
+        {
+            InitSessionVariables();
+
+            bool search = (bool)Session["Search"];
+
+            if (search)
+            {
+                return PartialView();
+            }
+            return null;
+        }
+        catch (System.Exception ex)
+        {
+            return Content("Erreur interne" + ex.Message, "text/html");
+        }
+    }
     // This action produce a partial view of Medias
     // It is meant to be called by an AJAX request (from client script)
     public ActionResult GetMediaDetails(bool forceRefresh = false)
@@ -178,7 +209,7 @@ public class MediasController : Controller
 
             int mediaId = (int)Session["CurrentMediaId"];
             Media Media = DB.Medias.Get(mediaId);
-            if (DB.Users.HasChanged || DB.Medias.HasChanged || forceRefresh)
+            if (DB.Users.HasChanged || DB.Medias.HasChanged || DB.Likes.HasChanged || forceRefresh)
             {
                 return PartialView(Media);
             }
@@ -196,6 +227,7 @@ public class MediasController : Controller
             {
                 if (DB.Users.HasChanged ||
                     DB.Medias.HasChanged ||
+                    DB.Likes.HasChanged ||
                     forceRefresh)
                 {
                     InitSessionVariables();
@@ -279,6 +311,13 @@ public class MediasController : Controller
     {
         ResetMediasPaging();
         Session["SelectedCategory"] = value;
+        return RedirectToAction("List");
+    }
+
+    public ActionResult SetSearchUser(int value)
+    {
+        ResetMediasPaging();
+        Session["SelectedUser"] = value;
         return RedirectToAction("List");
     }
     public ActionResult About()

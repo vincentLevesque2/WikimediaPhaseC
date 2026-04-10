@@ -1,0 +1,32 @@
+﻿@{
+    List<Media> medias = DAL.DB.Medias.ToList();
+    int selectedUser = (int)Session["SelectedUser"];
+
+
+    Dictionary<int, int> users = new Dictionary<int, int>();
+    foreach (Media media in medias)
+    {
+        if (users.ContainsKey(media.Owner.Id))
+        {
+            users[media.Owner.Id]++;
+        }
+
+        else
+        {
+            users.Add(media.Owner.Id, 1);
+        }
+
+    }
+
+
+
+}
+
+<select id="userSelect" class="form-control">
+    <option value="0" selected>Tout les users</option>
+    @foreach (var user in users)
+    {
+        string selected = selectedUser == user.Key ? "selected" : "0";
+        <option value="@user.Key" @selected>@DAL.DB.Users.Get(user.Key).Name  (@user.Value)</option>
+    }
+</select>

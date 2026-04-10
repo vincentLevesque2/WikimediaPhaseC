@@ -15,6 +15,7 @@
 
     string checkSortByTitle = mediaSortBy == MediaSortBy.Title ? "fa-check" : "";
     string checkSortByDate = mediaSortBy == MediaSortBy.PublishDate ? "fa-check" : "";
+    string checkSortByLike = mediaSortBy == MediaSortBy.Like ? "fa-check" : "";
 
     string iconSortBy = "";
     string iconSortByTitle = "";
@@ -23,6 +24,7 @@
     {
         case MediaSortBy.Title: iconSortBy = "fa-solid fa-t"; iconSortByTitle = "Tri des vidéos par titre"; break;
         case MediaSortBy.PublishDate: iconSortBy = "fa-regular fa-calendar"; iconSortByTitle = "Tri des vidéos par date de publication"; break;
+        case MediaSortBy.Like: iconSortBy = "fa-regular fa-thumbs-up"; iconSortByTitle = "Tri des vidéos par nombre de like"; break;
     }
 
     bool userConnected = Models.User.ConnectedUser != null;
@@ -130,6 +132,11 @@
                                 <a href="/Medias/SetMediaSortBy?mediaSortBy=@MediaSortBy.Title">Trier par titre</a>
                             </div>
 
+                            <div class="dropdown-item item-layout">
+                                <i class="menuIcon fa @checkSortByLike"></i>
+                                <a href="/Medias/SetMediaSortBy?mediaSortBy=@MediaSortBy.Like">Trier par like</a>
+                            </div>
+
                             <div class="dropdown-divider"></div>
 
                             <div class="dropdown-item item-layout">
@@ -221,7 +228,15 @@
             <!-- Dynamically refreshed -->
             @{ Html.RenderPartial("GetMediasCategoriesList"); }
         </div>
+
+        <div id="userSelectPanel" class="flexItem">
+            <!-- Dynamically refreshed -->
+            @{ Html.RenderPartial("GetMediasUsersList"); }
+        </div>
     </div>
 }
+
+
+
 
 

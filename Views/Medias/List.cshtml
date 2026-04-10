@@ -12,6 +12,7 @@
 
         let mediasListAutoRefreshPanel = null;
         let categoriesSelectAutoRefreshPanel = null;
+        let usersSelectAutoRefreshPanel = null;
         let loadMoreTriggerMargin = 10;
         let pauseScrollEvent = false;
 
@@ -25,6 +26,13 @@
                     "/Medias/GetMedias",
                     10,
                     mediasListPostRefresh);
+
+            usersSelectAutoRefreshPanel =
+                new AutoRefreshedPanel(
+                    "userSelectPanel",
+                    "/Medias/GetMediasUsersList",
+                    -1,
+                    usersSelectPostRefresh);
 
             categoriesSelectAutoRefreshPanel =
                 new AutoRefreshedPanel(
@@ -112,6 +120,7 @@
             function mediasListPostRefresh(fromRefresh = true) {
                 if (fromRefresh) {
                     categoriesSelectAutoRefreshPanel.refresh(true);
+                    usersSelectAutoRefreshPanel.refresh(true);
                     $(".toggleLikeCmd").off();
                     $(".toggleLikeCmd").click(function (e) {
                         mediasListAutoRefreshPanel.command("/Medias/ToggleMediaLike/" + $(this).attr("mediaId"));
@@ -159,6 +168,24 @@
                     window.location = "/Medias/SetSearchCategory?value=" + $("#categorySelect").val();
                 });
             }
+
+
+
+            function usersSelectPostRefresh() {
+
+                $("#userSelect").off();
+                $("#userSelect").on("focus", function () {
+                    mediasListAutoRefreshPanel.pause();
+                });
+                $("#userSelect").on("blur", function () {
+                    mediasListAutoRefreshPanel.restart();
+                });
+                $("#userSelect").on('change', function () {
+                    window.location = "/Medias/SetSearchUser?value=" + $("#userSelect").val();
+                });
+            }
+
+
         })
     </script>
 }
