@@ -150,33 +150,13 @@
             case "details":
 
 
-                string allNames = "\r\n";
-                foreach (string nom in DAL.DB.Medias.Get(currentMediaId).MediasLikes())
-                {
-                    allNames = allNames + nom + "\r\n";
-                }
+               
 
                 <div id="mainMenuPanel" class="menu">
 
                     <div id="likesPanel">
 
-                        <div style="display:grid; grid-template-columns:auto 20px;align-items:last baseline;margin-right:8px;">
-                            <span class="cmdIcon" style="font-size:1.1em" title="Usagers qui ont aimé : @allNames "> @DAL.DB.Medias.Get(currentMediaId).MediasLikes().Count</span>
-
-                            @{
-                                if (DAL.DB.Medias.Get(currentMediaId).LikedByConnectedUser())
-                                {
-                                    <i class="cmdIcon fa fa-thumbs-up toggleLikeCmd" mediaid="@currentMediaId"></i>
-                                }
-
-                                else
-                                {
-                                    <i class="cmdIcon fa-regular fa-thumbs-up toggleLikeCmd" mediaid="@currentMediaId"></i>
-                                }
-                            }
-
-
-                        </div>
+                       
                     </div>
                     @if ((bool)Session["UserCanEditCurrentMedia"] && userCanWrite)
                     {
@@ -235,7 +215,6 @@
         </div>
     </div>
 }
-
 
 
 

@@ -15,12 +15,22 @@
             newSession(600);
             //setCurrentPageLimit()
             mediaDetails_ARP = new AutoRefreshedPanel("detailsPanel", "/Medias/GetMediaDetails", 5, mediaDetailsPostRefresh);
+            mediaLikes_ARP = new AutoRefreshedPanel("likesPanel", "/Medias/GetMediasLikes", 5, mediaLikesPostRefresh);
             sessionStorage.setItem("RestoreScrollPosition", "1");
         })
 
-        function mediaDetailsPostRefresh() {
-            // todo
+        function mediaDetailsPostRefresh() { 
+
             highlightKeyword();
+        }
+
+        function mediaLikesPostRefresh(){
+            $(".toggleLikeCmd").off();
+            $(".toggleLikeCmd").click(function (e) {
+                mediaLikes_ARP.command("/Medias/ToggleMediaLike/" + $(this).attr("mediaId"));
+                e.preventDefault();
+            });
+         
         }
 
         function highlightKeyword() {

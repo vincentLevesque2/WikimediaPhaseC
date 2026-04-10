@@ -209,7 +209,7 @@ public class MediasController : Controller
 
             int mediaId = (int)Session["CurrentMediaId"];
             Media Media = DB.Medias.Get(mediaId);
-            if (DB.Users.HasChanged || DB.Medias.HasChanged || DB.Likes.HasChanged || forceRefresh)
+            if (DB.Users.HasChanged || DB.Medias.HasChanged || forceRefresh)
             {
                 return PartialView(Media);
             }
@@ -220,6 +220,26 @@ public class MediasController : Controller
             return Content("Erreur interne" + ex.Message, "text/html");
         }
     }
+
+    public ActionResult GetMediasLikes(bool forceRefresh = false)
+    {
+        try
+        {
+            InitSessionVariables();
+            if (DB.Users.HasChanged || DB.Medias.HasChanged || DB.Likes.HasChanged || forceRefresh)
+            {
+                return PartialView();
+            }
+            return null;
+        }
+        catch (System.Exception ex)
+        {
+            return Content("Erreur interne" + ex.Message, "text/html");
+        }
+    }
+
+
+
     public ActionResult GetMedias(bool forceRefresh = false)
     {
         {
